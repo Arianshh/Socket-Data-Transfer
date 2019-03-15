@@ -13,6 +13,8 @@ while True:
     # choose file to send.
     filename = askopenfilename()
     print(filename + ' uploaded.')
+    file_ext = filename.split('.')[1]
+    clientSock.send(str.encode(file_ext))
     data = open(filename, 'rb')
     data_to_bytes = data.read(1024)
     while data_to_bytes:
