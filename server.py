@@ -1,4 +1,4 @@
-import socket
+import socket, os
 from tkinter.filedialog import askopenfilename
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # establishing TCP connection
@@ -11,13 +11,23 @@ while True:
     print(f"Connection to {clientAdd[0]} has been established.")
 
     # choose file to send.
-    filename = askopenfilename()
-    print(filename + ' is being sent.')
-    file_ext = filename.split('.')
-    file_ext = file_ext[len(file_ext)-1]
+    filepath = askopenfilename()
+    filepath_split = filepath.split('.')
+    file_ext = filepath_split[len(filepath_split)-1]
+
+    if len(file_ext) == 3:
+        file_ext = '.' + file_ext
+
     clientSock.send(str.encode(file_ext))
-    data = open(filename, 'rb')
+
+    data = open(filepath, 'rb')
+    data_size = b = os.fstat(data.fileno()).st_size
+    print(filepath.split('/')[len(filepath.split('/')) - 1] + ' is being sent.')
+    print(f'file size : {data_size/1000000} MB')
+
     data_to_bytes = data.read(1024)
+    bytes_transferred = bytes(0)
+
     while data_to_bytes:
         clientSock.send(data_to_bytes)
         data_to_bytes = data.read(1024)
