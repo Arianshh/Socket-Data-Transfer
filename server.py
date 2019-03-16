@@ -3,7 +3,7 @@ from tkinter.filedialog import askopenfilename
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # establishing TCP connection
 # host_IP = str(socket.gethostbyname(socket.gethostname()))
-s.bind(('', 1234))
+s.bind(('192.168.1.7', 1235))
 s.listen(5)  # connection queue
 
 while True:
@@ -12,8 +12,9 @@ while True:
 
     # choose file to send.
     filename = askopenfilename()
-    print(filename + ' uploaded.')
-    file_ext = filename.split('.')[1]
+    print(filename + ' is being sent.')
+    file_ext = filename.split('.')
+    file_ext = file_ext[len(file_ext)-1]
     clientSock.send(str.encode(file_ext))
     data = open(filename, 'rb')
     data_to_bytes = data.read(1024)
