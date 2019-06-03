@@ -29,15 +29,9 @@ while True:
     data_to_bytes = data.read(1024)
     bytes_transferred = bytes(0)
 
-    load = 0
-
     while data_to_bytes:
-        if load % 10000 == 0:
-            print(int(load*1024/data_size*100), ' % done')
-
         clientSock.send(data_to_bytes)
         data_to_bytes = data.read(1024)
-        load += 1
     data.close()
 
     print('file sent.')

@@ -2,7 +2,11 @@ import socket
 from pathlib import Path
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<<<<<<< HEAD
 s.connect(('192.168.1.100', 1234))
+=======
+s.connect(('', 1234))
+>>>>>>> parent of fd2fa14... Add progressive bar to server
 ext = ''
 ext_data = True
 
