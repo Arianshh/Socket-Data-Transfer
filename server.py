@@ -1,9 +1,10 @@
-import socket, os
+import os
+import socket
 from tkinter.filedialog import askopenfilename
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # establishing TCP connection
 # host_IP = str(socket.gethostbyname(socket.gethostname()))
-s.bind(('192.168.1.7', 1234))
+s.bind(('192.168.1.100', 1234))
 s.listen(5)  # connection queue
 
 while True:
